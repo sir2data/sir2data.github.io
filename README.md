@@ -1,2 +1,3 @@
-这是一个关于flexbox基础的骰子布局
- [demo](https://github.com/sirsquare/sirsquare.github.io/blob/master/Benchmarking_Singlae_image_reflection_removal_algorithms.htm)
+[The project website of SIR2](http://yu-li.github.io/)
+==
+[This is the project website of SIR2.](https://sirsquare.github.io/Benchmarking_Singlae_image_reflection_removal_algorithms.htm)
