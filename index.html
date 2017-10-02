@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)http://people.sutd.edu.sg/~saikit/projects/sceneNN/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+  <title>Benchmarking Single image reflection removal algorithms</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="./material/css" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="./material/normalize.css">
+  <link rel="stylesheet" href="./material/skeleton.css">
+  <link rel="stylesheet" href="./material/scenenn.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="http://people.sutd.edu.sg/~saikit/projects/sceneNN/images/favicon.png">
+
+  <!-- Google icon
+  -------------------------------------------------- -->
+  <link rel="stylesheet" href="./material/icon">
+
+  <!-- jQuery
+  -------------------------------------------------- -->
+  <script async="" src="./material/analytics.js.download"></script><script src="./material/jquery.min.js.download"></script>
+
+  <!-- Analytics
+  -------------------------------------------------- -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-86869673-1', 'auto');
+  ga('send', 'pageview');
+  </script>
+
+  <!-- Hover effect: https://codepen.io/nxworld/pen/ZYNOBZ -->
+  <style>
+    img {
+        display: block;
+    }
+    figure {
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .hover figure img {
+        -webkit-transform: rotate(0) scale(1);
+        transform: rotate(0) scale(1);
+
+    }
+    .hover figure:hover img {
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+        -webkit-transform: rotate(15deg) scale(1.4);
+        transform: rotate(15deg) scale(1.4);
+    }
+  </style>
+
+<script src="./material/embed.js.download" data-timestamp="1505833777984"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.1b2848953aa0e43e07dcbf614b98c0ff.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.f676c84aeac20fb55187512d1a7172ca.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.367e50d1542fbd0ef9618cbfcc0653d9.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+
+
+        <h4><center> Benchmarking Single-Image Reflection Removal Algorithms</p></center></h4>
+
+        <center><p style="margin-bottom:12px;">Renjie Wan</a><sup>1</sup>, <a class="simple" href="http://www.shiboxin.com">Boxin Shi</a><sup>2</sup>, Ling-Yu Duan</a><sup>3</sup>, <a class="simple" href="http://www.ntu.edu.sg/home/asahtan/">Ah-Hwee Tan</a><sup>1</sup>, and <a class="simple" href="http://www.ntu.edu.sg/home/eackot/">Alex C. Kot</a><sup>1</sup></p></center>
+
+        <p style="margin-bottom:20px;">
+        <sup>1</sup>Nanyang Technological University
+        <span style="display:inline-block; width: 32px"></span>
+        <sup>2</sup>National Institute of Advanced Industrial Science and Technology
+        <span style="display:inline-block; width: 32px"></span>
+        <sup>3</sup>Peking University
+        </p>
+
+        <!--<img src="images/overview.png" class="u-max-full-width"></img>-->
+        <!--<iframe width="100%" height="500px" scrolling="no" style="border:0" src="overview.html"></iframe>-->
+		<div id="photo"><img src="./material/whole.png" alt="Yu's Profile Picture" width="940" height="320"></div>
+
+
+		<p>We propose the `SIR<sup>2</sup>' benchmark dataset with a large number and a great diversity of mixture images, and ground truth of background and reflection.
+		Our dataset includes the controlled scenes taken indoor and wild scenes taken outdoor.
+		<p>
+		One part of the controlled scene is composed by a set of solid objects, which uses commonly available daily-life objects (<I>e.g.</I> ceramix mugs, plush toys, fruits, <I>etc</I>.) for both the background and the reflected scenes.
+		The other parts of the controlled scenes use five different postcards and combines them in a pair-wise manner by using each card as background  and reflection, respectively.
+		<p>
+		The wild scenes are with real-world objects of complex reflectance (car, tree leaves, glass windows, <I>etc</I>), various distances and scales (residential halls, gardens, and lecture room, <I>etc</I>),
+		and different illuminations (direct sunlight, cloudy sky light and twilight, <I>etc</I>.).
+		</p>
+
+        <!-- ------------------------------------- -->
+
+		<div class="section">
+			<h5>News</h5>
+
+			<ul class="news">
+
+			<li><b>July 21, 2017</b>: The webpage is online now. The dataset will come soon!</li>
+			</ul>
+		</div>
+
+        <!-- ------------------------------------- -->
+
+        <div class="section">
+            <h5>Dataset &amp; Script</h5>
+
+            <div class="container">
+
+              <div class="row">
+                <div class="three columns">
+                    <i class="material-icons grey-icon">cloud</i>
+                    <br>
+                    <a>Dataset</a>
+                    <br>
+
+                </div>
+
+                <div class="three columns">
+                    <i class="material-icons grey-icon">cloud_download</i>
+                    <br>
+                    <a>Download script</a>
+                    <br>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+            <ul>
+
+            </ul>
+        </div>
+
+        <!-- ------------------------------------- -->
+
+        <div class="section publication">
+            <h5>Publication</h5>
+            <ul>
+            <li>
+                <div>
+                <p class="paper title">Benchmarking Single-Image Reflection Removal Algorithms</p>
+                <p>Renjie Wan, Boxin Shi, Ling-Yu Duan, Ah-Hwee Tan, and Alex C. Kot</p>
+                <p class="paper venue">International Conference on Computer Vision 2017.</p>
+                <a>Paper</a>
+                <a>Supplemental</a>
+                <a>Slides</a>
+                <a>Poster</a>
+                <a id="abibSceneNN" href="#">Bibtex</a>
+                </div>
+<!-- Don't indent this for correct bibtex display -->
+<pre style="display: none;" id="bibSceneNN"><code>@inproceedings{SIR2-iccv17,
+    author = {Renjie Wan and Boxin Shi and Ling-Yu Duan and Ah-Hwee Tan and Alex C. Kot},
+    title = {Benchmarking Single-Image Reflection Removal Algorithms},
+    booktitle = {International Conference on Computer Vision (ICCV)},
+    year = {2017}
+}</code>
+</pre>
+</div>
+        <div class="section">
+            <h5>Discussion</h5>
+            <p>
+            Please email us at <b><u>wanpeoplejie [at] gmail.com</u></b> for any inquiries.
+            </p>
+        </div>
+  </div>
+
+  <script>
+    function show_scene_list() {
+        // Populate teaser images (a 3x4 grid of images)
+        var height = 3;
+        var width = 4;
+
+        // Change the scene ID here for other scenes
+        var images = ["076", 		"086",		"032",		"082",
+                      "049", 		"093",		"246",		"021",
+                      "207", 		"213",		"272",		"074"];
+
+        $("#teaser").empty();
+        for (var i = 0; i < height; ++i) {
+            var row = "<div class=\"row\" style=\"padding-bottom: 1%;\">";
+            for (var j = 0; j < width; ++j) {
+                var id = images[i * width + j];
+                var file = "images/scenes/" + id + "/" + id + "_segmented.png";
+                row += "<div class=\"three columns hover\" style='margin-left: 1%;'>";
+                // Change margin above to adjust gaps between columns
+                row += "<figure><img id=\"" + id + "\" class=\"u-max-full-width\" src=\"" + file + "\" data-popup-open=\"popup-1\"></img></figure>";
+                row += "</div>";
+            }
+            row += "</div>"
+
+            $("#teaser").append(row);
+        }
+
+        // Add click event for each image
+        /*
+        for (var i = 0; i < height; ++i) {
+            for (var j = 0; j < width; ++j) {
+                var id = images[i * width + j];
+                $("#"+id).click(function(e) {
+                    //window.location.href = "load_ply.html?ply_name=data/066_merge_color_lowres.ply&xml_name=data/066_merge_correct.xml";
+
+                    // test scene
+                    show_webgl("data/066_merge_color_lowres.ply",
+                                "data/066_merge_correct.xml");
+                });
+            }
+        }*/
+    }
+
+    $(document).ready(function(){
+        var bibName = ["SceneNN", "Tool"];
+
+        // Add click event for bibtex links
+        for (var i = 0; i < bibName.length; ++i) {
+            $("#abib" + bibName[i]).click(function(e){
+
+                var abib = event.target.id; // <a> that fires the event
+                var bib = abib.replace("abib", "bib");
+
+                $("#"+bib).toggle(100);
+
+                // Scroll to the code position
+                $('html, body').animate({
+                    scrollTop: $("#"+bib).offset().top
+                }, 100);
+
+                // Cancel the default action (jump to page top due to link clicked)
+                e.preventDefault();
+            });
+
+            // Hide at start
+            $("#bib" + bibName[i]).hide();
+        }
+
+        show_scene_list();
+
+        // Pop-up dialog for WebGL
+        //----- OPEN'
+
+        $('[data-popup-open]').on('click', function(e)  {
+            var targeted_popup_class = jQuery(this).attr('data-popup-open');
+            $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+
+            // show WebGL
+            show_webgl("data/066_merge_color_lowres.ply",
+                       "data/066_merge_correct.xml");
+
+            e.preventDefault();
+        });
+
+        //----- CLOSE
+        $('[data-popup-close]').on('click', function(e)  {
+            // if clicked on a child element, don't close.
+            if (e.target !== this) return;
+
+            var targeted_popup_class = jQuery(this).attr('data-popup-close');
+            $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
+
+            // hide WebGL
+            hide_webgl();
+
+            e.preventDefault();
+        });
+
+        // When video is hovered, show the controls
+        $('#my-video').hover(function() {
+            if (this.hasAttribute("controls")) {
+                this.removeAttribute("controls")
+            } else {
+                this.setAttribute("controls", "controls")
+            }
+        });
+    });
+  </script>
+
+  <!-- Disqus comment count
+  -------------------------------------------------- -->
+  <script id="dsq-count-scr" src="./SceneNN_ A Scene Meshes Dataset with aNNotations_files/count.js.download" async=""></script>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+
+<iframe style="display: none;" src="./SceneNN_ A Scene Meshes Dataset with aNNotations_files/saved_resource(1).html"></iframe></body></html>
